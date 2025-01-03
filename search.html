@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Results - Culinary Connect</title>
+    <title>Search Recipes - Culinary Connect</title>
     <link rel="stylesheet" href="search.css">
 </head>
 <body>
-<section id="search-section">
+<section class="search-section">
     <div class="search-bar-container">
         <input
             type="text"
@@ -16,9 +16,9 @@
             autofocus
         />
         <button id="close-search" class="close-btn" aria-label="Close">&#x2715;</button>
-        <button id="search-btn" class="search-btn" aria-label="Search">&#128269;</button>
     </div>
 
+    <!-- Filter Icons -->
     <div class="filter-icons">
         <button class="filter-icon" data-filter="vegan">🌱 Vegan</button>
         <button class="filter-icon" data-filter="gluten-free">🌾 Gluten-Free</button>
@@ -26,11 +26,20 @@
         <button class="filter-icon" data-filter="quick-meals">⏱ Quick Meals</button>
     </div>
 
-    <div id="search-results">
-        <h3 id="search-title">Start searching for recipes!</h3>
-        <div id="recipe-grid" class="recipe-cards"></div>
+    <!-- Search Results -->
+    <div id="search-results" class="search-results">
+        <h3 class="results-title hidden" id="results-title">Search results for: "<span id="search-query"></span>"</h3>
+        <div id="recipe-grid" class="recipe-cards">
+            <!-- Dynamic content will load here -->
+        </div>
+    </div>
+
+    <!-- No Results -->
+    <div id="no-results" class="no-results hidden">
+        <p>No recipes found for your search. Please try again!</p>
     </div>
 </section>
-<script src="search.js"></script>
+
+<script src="search.js" defer></script>
 </body>
 </html>
