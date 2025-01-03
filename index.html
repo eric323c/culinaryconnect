@@ -3,29 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Culinary Connect</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Search - Culinary Connect</title>
+    <link rel="stylesheet" href="search.css">
 </head>
 <body>
-<!-- Hero Section -->
-<section class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-        <h1>Discover the World’s Most Delicious Recipes</h1>
-        <p>From cozy family meals to gourmet creations, find your next favorite dish here.</p>
-        <div class="search-bar">
-            <input type="text" id="hero-search-bar" placeholder="Search by ingredient, cuisine, or dish...">
+    <!-- Search Section -->
+    <section id="search-section" class="search-section">
+        <div class="search-bar-container">
+            <input
+                type="text"
+                id="search-input"
+                placeholder="Search by ingredient, cuisine, or dish..."
+                autofocus
+            />
+            <button id="search-btn" class="search-btn" aria-label="Search">&#128269;</button>
+            <button id="close-btn" class="close-btn" aria-label="Close">&#x2715;</button>
         </div>
-        <div class="hero-buttons">
-            <button class="secondary-btn">Browse Categories</button>
-            <button class="cta-btn">Explore Recipes</button>
+
+        <!-- Filter Icons -->
+        <div class="recipe-filters">
+            <button class="filter-icon" data-filter="vegan">🌱 Vegan</button>
+            <button class="filter-icon" data-filter="gluten-free">🌾 Gluten-Free</button>
+            <button class="filter-icon" data-filter="favorites">❤️ Favorites</button>
+            <button class="filter-icon" data-filter="quick-meals">⏱ Quick Meals</button>
         </div>
-    </div>
-    <div class="hero-background">
-        <img src="https://images.pexels.com/photos/5768970/pexels-photo-5768970.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Food background">
-    </div>
-</section>
-<script src="script.js" defer></script>
+
+        <!-- Search Results Title -->
+        <div id="search-results-title" class="search-results-title hidden">
+            <h3>Search results for: "<span id="search-query"></span>"</h3>
+        </div>
+
+        <!-- Recipe Grid for Search Results -->
+        <div id="recipe-grid" class="recipe-cards hidden">
+            <!-- Search results will dynamically load here -->
+        </div>
+    </section>
+
+    <script src="search.js" defer></script>
 </body>
 </html>
-
