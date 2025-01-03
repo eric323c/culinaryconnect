@@ -1,1 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Culinary Connect - Search</title>
+    <link rel="stylesheet" href="search.css">
+</head>
+<body>
+<section id="search-section" class="search-section">
+    <div class="search-bar-container">
+        <input
+            type="text"
+            id="search-input"
+            placeholder="Search by ingredient, cuisine, or dish..."
+            autofocus
+        />
+        <button id="close-search" class="close-btn" aria-label="Close">&#x2715;</button>
+        <button id="search-btn" class="search-btn" aria-label="Search">&#128269;</button>
+    </div>
+
+    <!-- Filter Icons Carousel -->
+    <div class="recipe-filters">
+        <button class="filter-icon" data-filter="vegan">🌱 Vegan</button>
+        <button class="filter-icon" data-filter="gluten-free">🌾 Gluten-Free</button>
+        <button class="filter-icon" data-filter="favorites">❤️ Favorites</button>
+        <button class="filter-icon" data-filter="quick-meals">⏱ Quick Meals</button>
+    </div>
+
+    <!-- Search Results -->
+    <div id="search-results">
+        <h3>Start searching for recipes!</h3>
+    </div>
+</section>
+<script src="search.js"></script>
+</body>
+</html>
 
