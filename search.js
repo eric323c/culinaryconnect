@@ -34,6 +34,34 @@ async function fetchRecipes() {
     `;
   });
 }
+// Open and Close Add Recipe Modal
+const addRecipeModal = document.getElementById("add-recipe-modal");
+
+function openAddRecipeModal() {
+  addRecipeModal.classList.add("active");
+}
+
+function closeAddRecipeModal() {
+  addRecipeModal.classList.remove("active");
+}
+
+// Return to Home Page
+function returnToHome() {
+  window.location.href = "index.html";
+}
+
+// Placeholder Recipe Loading
+function loadRecipes() {
+  const recipeGrid = document.querySelector(".recipe-grid");
+  recipeGrid.innerHTML = `
+    <div class="recipe-card">Sample Recipe 1</div>
+    <div class="recipe-card">Sample Recipe 2</div>
+    <div class="recipe-card">Sample Recipe 3</div>
+  `;
+}
+
+document.addEventListener("DOMContentLoaded", loadRecipes);
+
 
 // Add Recipe to Firestore
 const recipeForm = document.getElementById("recipe-form");
