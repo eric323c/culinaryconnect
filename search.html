@@ -3,44 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search | Culinary Connect</title>
+    <title>Search - Culinary Connect</title>
     <link rel="stylesheet" href="search.css">
 </head>
 <body>
-<!-- Search Section -->
-<section id="search-section" class="search-section">
-    <!-- Search Bar -->
-    <div class="search-bar-container">
-        <input
-            type="text"
-            id="search-input"
-            placeholder="Search by ingredient, cuisine, or dish..."
-            autofocus
-        />
-        <button id="search-btn" class="search-btn" aria-label="Search">&#128269;</button>
-        <button id="close-btn" class="close-btn" aria-label="Close">&#x2715;</button>
-    </div>
+    <!-- Search Section -->
+    <section id="search-section" class="search-section">
+        <div class="search-bar-container">
+            <input
+                type="text"
+                id="search-input"
+                placeholder="Search by ingredient, cuisine, or dish..."
+                autofocus
+            />
+            <button id="search-btn" class="search-btn" aria-label="Search">&#128269;</button>
+            <button id="close-btn" class="close-btn" aria-label="Close">&#x2715;</button>
+        </div>
 
-    <!-- Filter Icons Carousel -->
-    <div class="recipe-filters">
-        <button class="filter-icon" data-filter="vegan">🌱 Vegan</button>
-        <button class="filter-icon" data-filter="gluten-free">🌾 Gluten-Free</button>
-        <button class="filter-icon" data-filter="favorites">❤️ Favorites</button>
-        <button class="filter-icon" data-filter="quick-meals">⏱ Quick Meals</button>
-    </div>
+        <!-- Filter Icons -->
+        <div class="recipe-filters">
+            <button class="filter-icon" data-filter="vegan">🌱 Vegan</button>
+            <button class="filter-icon" data-filter="gluten-free">🌾 Gluten-Free</button>
+            <button class="filter-icon" data-filter="favorites">❤️ Favorites</button>
+            <button class="filter-icon" data-filter="quick-meals">⏱ Quick Meals</button>
+        </div>
 
-    <!-- Search Results Title -->
-    <div id="search-results-title" class="search-results-title hidden">
-        <h3>Search results for: "<span id="search-query"></span>"</h3>
-    </div>
+        <!-- Search Results Title -->
+        <div id="search-results-title" class="search-results-title hidden">
+            <h3>Search results for: "<span id="search-query"></span>"</h3>
+        </div>
 
-    <!-- Recipe Cards for Search Results -->
-    <div id="recipe-grid" class="recipe-cards">
-        <!-- Example Recipe Cards -->
-        <!-- Dynamic content will be injected here by JavaScript -->
-    </div>
-</section>
+        <!-- Recipe Grid for Search Results -->
+        <div id="recipe-grid" class="recipe-cards hidden">
+            <!-- Search results will dynamically load here -->
+        </div>
+    </section>
 
-<script src="script.js"></script>
+    <script src="search.js" defer></script>
 </body>
 </html>
