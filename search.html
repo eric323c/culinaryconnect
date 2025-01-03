@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Culinary Connect - Search</title>
+  <title>Search Recipes - Culinary Connect</title>
   <link rel="stylesheet" href="search.css">
 </head>
 <body>
   <!-- Search Section -->
   <section class="search-section">
-    <div class="search-bar-container">
-      <input type="text" id="search-input" placeholder="Search by ingredient, cuisine, or dish...">
-      <button id="close-search" class="close-btn" aria-label="Close">&#x2715;</button>
+    <div class="search-bar">
+      <input type="text" id="search-bar" placeholder="Search by ingredient, cuisine, or dish...">
+      <button class="add-recipe-btn" onclick="openAddRecipeModal()">+</button>
+      <button class="close-search" onclick="returnToHome()">✖</button>
     </div>
 
-    <!-- Filter Icons -->
+    <!-- Filters -->
     <div class="filter-icons">
       <button class="filter-icon" data-filter="vegan">🌱 Vegan</button>
       <button class="filter-icon" data-filter="gluten-free">🌾 Gluten-Free</button>
@@ -22,23 +23,32 @@
       <button class="filter-icon" data-filter="quick-meals">⏱ Quick Meals</button>
     </div>
 
-    <!-- Recipe Cards -->
-    <div id="recipes-container" class="recipe-cards">
-      <!-- Recipes will be dynamically added here -->
+    <!-- Recipe Results -->
+    <div class="recipe-grid">
+      <!-- Recipe cards will be dynamically loaded here -->
     </div>
-
-    <!-- Recipe Upload Form -->
-    <form id="recipe-form">
-      <h2>Add a Recipe</h2>
-      <input type="text" id="recipe-title" placeholder="Recipe Title" required>
-      <textarea id="recipe-description" placeholder="Description" required></textarea>
-      <input type="text" id="recipe-category" placeholder="Category (e.g., vegan)" required>
-      <input type="file" id="recipe-image" accept="image/*" required>
-      <button type="submit">Add Recipe</button>
-    </form>
   </section>
 
-  <!-- Firebase and Custom Scripts -->
-  <script type="module" src="search.js"></script>
+  <!-- Add Recipe Modal -->
+  <div class="modal hidden" id="add-recipe-modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeAddRecipeModal()">&times;</span>
+      <h2>Add a Recipe</h2>
+      <form id="add-recipe-form">
+        <label for="recipe-name">Recipe Name:</label>
+        <input type="text" id="recipe-name" name="recipe-name" required>
+        
+        <label for="recipe-ingredients">Ingredients:</label>
+        <textarea id="recipe-ingredients" name="recipe-ingredients" required></textarea>
+        
+        <label for="recipe-steps">Steps:</label>
+        <textarea id="recipe-steps" name="recipe-steps" required></textarea>
+        
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="search.js" defer></script>
 </body>
 </html>
