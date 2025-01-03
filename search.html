@@ -1,54 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search Recipes - Culinary Connect</title>
-  <link rel="stylesheet" href="search.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Recipes</title>
+    <link rel="stylesheet" href="search.css">
 </head>
 <body>
-  <!-- Search Section -->
-  <section class="search-section">
-    <div class="search-bar">
-      <input type="text" id="search-bar" placeholder="Search by ingredient, cuisine, or dish...">
-      <button class="add-recipe-btn" onclick="openAddRecipeModal()">+</button>
-      <button class="close-search" onclick="returnToHome()">✖</button>
-    </div>
+    <!-- Search Section -->
+    <section class="search-section">
+        <!-- Search Bar -->
+        <div class="search-bar-container">
+            <input
+                type="text"
+                id="search-input"
+                placeholder="Search by ingredient, cuisine, or dish..."
+            />
+            <button id="search-btn" aria-label="Search">&#128269;</button>
+            <button id="close-search" aria-label="Close">&#x2715;</button>
+        </div>
 
-    <!-- Filters -->
-    <div class="filter-icons">
-      <button class="filter-icon" data-filter="vegan">🌱 Vegan</button>
-      <button class="filter-icon" data-filter="gluten-free">🌾 Gluten-Free</button>
-      <button class="filter-icon" data-filter="favorites">❤️ Favorites</button>
-      <button class="filter-icon" data-filter="quick-meals">⏱ Quick Meals</button>
-    </div>
+        <!-- Filter Carousel -->
+        <div class="filter-carousel">
+            <button class="filter-icon" data-filter="vegan">🌱 Vegan</button>
+            <button class="filter-icon" data-filter="gluten-free">🌾 Gluten-Free</button>
+            <button class="filter-icon" data-filter="favorites">❤️ Favorites</button>
+            <button class="filter-icon" data-filter="quick-meals">⏱ Quick Meals</button>
+        </div>
 
-    <!-- Recipe Results -->
-    <div class="recipe-grid">
-      <!-- Recipe cards will be dynamically loaded here -->
-    </div>
-  </section>
+        <!-- Add Recipe Button -->
+        <button id="add-recipe-btn" class="add-recipe-btn">+ Add Recipe</button>
 
-  <!-- Add Recipe Modal -->
-  <div class="modal hidden" id="add-recipe-modal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeAddRecipeModal()">&times;</span>
-      <h2>Add a Recipe</h2>
-      <form id="add-recipe-form">
-        <label for="recipe-name">Recipe Name:</label>
-        <input type="text" id="recipe-name" name="recipe-name" required>
-        
-        <label for="recipe-ingredients">Ingredients:</label>
-        <textarea id="recipe-ingredients" name="recipe-ingredients" required></textarea>
-        
-        <label for="recipe-steps">Steps:</label>
-        <textarea id="recipe-steps" name="recipe-steps" required></textarea>
-        
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-  </div>
+        <!-- Add Recipe Modal -->
+        <div id="add-recipe-modal" class="modal">
+            <div class="modal-content">
+                <h3>Add a New Recipe</h3>
+                <form id="add-recipe-form">
+                    <input type="text" id="recipe-title" placeholder="Recipe Title" required />
+                    <textarea id="recipe-description" placeholder="Recipe Description" required></textarea>
+                    <input type="text" id="recipe-ingredients" placeholder="Ingredients (comma-separated)" required />
+                    <input type="url" id="recipe-image" placeholder="Image URL" required />
+                    <button type="submit">Add Recipe</button>
+                </form>
+                <button id="close-recipe-modal" class="close-btn">Close</button>
+            </div>
+        </div>
 
-  <script src="search.js" defer></script>
+        <!-- Recipe Grid -->
+        <div id="recipe-grid" class="recipe-grid">
+            <!-- Recipe cards dynamically inserted here -->
+        </div>
+    </section>
+
+    <script src="search.js" type="module"></script>
 </body>
 </html>
