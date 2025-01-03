@@ -53,4 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
     closeButton.addEventListener("click", () => {
         window.location.href = "index.html";
     });
+
+    // Render initial recipes
+    renderRecipes(recipes);
 });
