@@ -181,6 +181,7 @@ body {
   width: 90%;
   max-width: 400px;
   text-align: center;
+  position: relative;
 }
 
 .modal-content h2 {
@@ -222,3 +223,4 @@ body {
   cursor: pointer;
   font-size: 1.5rem;
 }
+
