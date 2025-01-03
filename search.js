@@ -42,8 +42,12 @@ async function fetchRecipes(searchTerm = "") {
     try {
         let q;
         if (searchTerm) {
-            // Filter by search term
-            q = query(collection(db, "recipes"), where("title", "==", searchTerm));
+            // Filter by search term (case insensitive)
+            q = query(
+                collection(db, "recipes"),
+                where("title", ">=", searchTerm),
+                where("title", "<=", searchTerm + "\uf8ff")
+            );
         } else {
             // Fetch all recipes
             q = query(collection(db, "recipes"));
@@ -72,7 +76,7 @@ function displayRecipeCard(recipe) {
         <img src="${recipe.image}" alt="${recipe.title}">
         <h3>${recipe.title}</h3>
         <p>${recipe.description}</p>
-        <p><strong>Ingredients:</strong> ${recipe.ingredients}</p>
+        <p><strong>Ingredients:</strong> ${recipe.ingredients.join(", ")}</p>
     `;
 
     recipeGrid.appendChild(card);
@@ -80,7 +84,7 @@ function displayRecipeCard(recipe) {
 
 // Handle Search
 function handleSearch() {
-    const searchTerm = searchInput.value.trim();
+    const searchTerm = searchInput.value.trim().toLowerCase();
     if (searchTerm) {
         fetchRecipes(searchTerm);
     }
@@ -90,10 +94,15 @@ function handleSearch() {
 async function handleAddRecipe(event) {
     event.preventDefault();
 
-    const title = document.getElementById("recipe-title").value;
-    const description = document.getElementById("recipe-description").value;
-    const ingredients = document.getElementById("recipe-ingredients").value.split(",");
-    const image = document.getElementById("recipe-image").value;
+    const title = document.getElementById("recipe-title").value.trim();
+    const description = document.getElementById("recipe-description").value.trim();
+    const ingredients = document.getElementById("recipe-ingredients").value.split(",").map((ing) => ing.trim());
+    const image = document.getElementById("recipe-image").value.trim();
+
+    if (!title || !description || ingredients.length === 0 || !image) {
+        alert("Please fill in all fields.");
+        return;
+    }
 
     try {
         await addDoc(collection(db, "recipes"), {
@@ -101,6 +110,7 @@ async function handleAddRecipe(event) {
             description,
             ingredients,
             image,
+            createdAt: new Date(),
         });
 
         alert("Recipe added successfully!");
