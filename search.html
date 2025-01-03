@@ -3,55 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Recipes</title>
+    <title>Culinary Connect - Search</title>
     <link rel="stylesheet" href="search.css">
 </head>
 <body>
     <!-- Search Section -->
-    <section class="search-section">
-        <!-- Search Bar -->
+    <header class="search-header">
         <div class="search-bar-container">
-            <input
-                type="text"
-                id="search-input"
-                placeholder="Search by ingredient, cuisine, or dish..."
-            />
-            <button id="search-btn" aria-label="Search">&#128269;</button>
-            <button id="close-search" aria-label="Close">&#x2715;</button>
+            <input type="text" id="search-input" placeholder="Search by ingredient, cuisine, or dish..." autofocus>
+            <button id="search-btn" class="search-btn" aria-label="Search">&#128269;</button>
+            <button id="close-search" class="close-btn" aria-label="Close">&#x2715;</button>
         </div>
+    </header>
 
-        <!-- Filter Carousel -->
-        <div class="filter-carousel">
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="recipe-filters">
             <button class="filter-icon" data-filter="vegan">🌱 Vegan</button>
             <button class="filter-icon" data-filter="gluten-free">🌾 Gluten-Free</button>
             <button class="filter-icon" data-filter="favorites">❤️ Favorites</button>
             <button class="filter-icon" data-filter="quick-meals">⏱ Quick Meals</button>
         </div>
-
-        <!-- Add Recipe Button -->
-        <button id="add-recipe-btn" class="add-recipe-btn">+ Add Recipe</button>
-
-        <!-- Add Recipe Modal -->
-        <div id="add-recipe-modal" class="modal">
-            <div class="modal-content">
-                <h3>Add a New Recipe</h3>
-                <form id="add-recipe-form">
-                    <input type="text" id="recipe-title" placeholder="Recipe Title" required />
-                    <textarea id="recipe-description" placeholder="Recipe Description" required></textarea>
-                    <input type="text" id="recipe-ingredients" placeholder="Ingredients (comma-separated)" required />
-                    <input type="url" id="recipe-image" placeholder="Image URL" required />
-                    <button type="submit">Add Recipe</button>
-                </form>
-                <button id="close-recipe-modal" class="close-btn">Close</button>
-            </div>
-        </div>
-
-        <!-- Recipe Grid -->
-        <div id="recipe-grid" class="recipe-grid">
-            <!-- Recipe cards dynamically inserted here -->
-        </div>
     </section>
 
-    <script src="search.js" type="module"></script>
+    <!-- Recipe Results Section -->
+    <main class="recipe-results">
+        <h2 id="search-results-title" class="hidden">Search results for: "<span id="search-query"></span>"</h2>
+        <div id="recipe-grid" class="recipe-cards">
+            <!-- Recipes dynamically populated here -->
+        </div>
+    </main>
+
+    <!-- Add Recipe Button -->
+    <button id="add-recipe-btn" class="add-recipe-btn" aria-label="Add Recipe">+</button>
+
+    <!-- Add Recipe Modal -->
+    <div id="add-recipe-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Add a Recipe</h2>
+            <form id="add-recipe-form">
+                <label for="recipe-title">Title:</label>
+                <input type="text" id="recipe-title" name="recipe-title" required>
+
+                <label for="recipe-description">Description:</label>
+                <textarea id="recipe-description" name="recipe-description" required></textarea>
+
+                <label for="recipe-ingredients">Ingredients (comma-separated):</label>
+                <input type="text" id="recipe-ingredients" name="recipe-ingredients" required>
+
+                <label for="recipe-image">Image URL:</label>
+                <input type="url" id="recipe-image" name="recipe-image" required>
+
+                <button type="submit" class="modal-submit-btn">Add Recipe</button>
+                <button type="button" id="close-recipe-modal" class="modal-close-btn">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="search.js"></script>
 </body>
 </html>
