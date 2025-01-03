@@ -3,42 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search - Culinary Connect</title>
+    <title>Search Results - Culinary Connect</title>
     <link rel="stylesheet" href="search.css">
 </head>
 <body>
-    <!-- Search Section -->
-    <section id="search-section" class="search-section">
-        <div class="search-bar-container">
-            <input
-                type="text"
-                id="search-input"
-                placeholder="Search by ingredient, cuisine, or dish..."
-                autofocus
-            />
-            <button id="search-btn" class="search-btn" aria-label="Search">&#128269;</button>
-            <button id="close-btn" class="close-btn" aria-label="Close">&#x2715;</button>
-        </div>
+<section id="search-section">
+    <div class="search-bar-container">
+        <input
+            type="text"
+            id="search-input"
+            placeholder="Search by ingredient, cuisine, or dish..."
+            autofocus
+        />
+        <button id="close-search" class="close-btn" aria-label="Close">&#x2715;</button>
+        <button id="search-btn" class="search-btn" aria-label="Search">&#128269;</button>
+    </div>
 
-        <!-- Filter Icons -->
-        <div class="recipe-filters">
-            <button class="filter-icon" data-filter="vegan">🌱 Vegan</button>
-            <button class="filter-icon" data-filter="gluten-free">🌾 Gluten-Free</button>
-            <button class="filter-icon" data-filter="favorites">❤️ Favorites</button>
-            <button class="filter-icon" data-filter="quick-meals">⏱ Quick Meals</button>
-        </div>
+    <div class="filter-icons">
+        <button class="filter-icon" data-filter="vegan">🌱 Vegan</button>
+        <button class="filter-icon" data-filter="gluten-free">🌾 Gluten-Free</button>
+        <button class="filter-icon" data-filter="favorites">❤️ Favorites</button>
+        <button class="filter-icon" data-filter="quick-meals">⏱ Quick Meals</button>
+    </div>
 
-        <!-- Search Results Title -->
-        <div id="search-results-title" class="search-results-title hidden">
-            <h3>Search results for: "<span id="search-query"></span>"</h3>
-        </div>
-
-        <!-- Recipe Grid for Search Results -->
-        <div id="recipe-grid" class="recipe-cards hidden">
-            <!-- Search results will dynamically load here -->
-        </div>
-    </section>
-
-    <script src="search.js" defer></script>
+    <div id="search-results">
+        <h3 id="search-title">Start searching for recipes!</h3>
+        <div id="recipe-grid" class="recipe-cards"></div>
+    </div>
+</section>
+<script src="search.js"></script>
 </body>
 </html>
