@@ -25,6 +25,7 @@ const addRecipeBtn = document.getElementById("add-recipe-btn");
 const addRecipeModal = document.getElementById("add-recipe-modal");
 const closeRecipeModal = document.getElementById("close-recipe-modal");
 const addRecipeForm = document.getElementById("add-recipe-form");
+const closeSearch = document.getElementById("close-search");
 
 // Event Listeners
 searchBtn.addEventListener("click", handleSearch);
@@ -34,6 +35,9 @@ searchInput.addEventListener("keypress", (e) => {
 addRecipeBtn.addEventListener("click", () => addRecipeModal.classList.add("active"));
 closeRecipeModal.addEventListener("click", () => addRecipeModal.classList.remove("active"));
 addRecipeForm.addEventListener("submit", handleAddRecipe);
+closeSearch.addEventListener("click", () => {
+    window.location.href = "index.html";
+});
 
 // Fetch and Display Recipes
 async function fetchRecipes(searchTerm = "") {
@@ -42,14 +46,8 @@ async function fetchRecipes(searchTerm = "") {
     try {
         let q;
         if (searchTerm) {
-            // Filter by search term (case insensitive)
-            q = query(
-                collection(db, "recipes"),
-                where("title", ">=", searchTerm),
-                where("title", "<=", searchTerm + "\uf8ff")
-            );
+            q = query(collection(db, "recipes"), where("title", "==", searchTerm));
         } else {
-            // Fetch all recipes
             q = query(collection(db, "recipes"));
         }
 
@@ -84,7 +82,7 @@ function displayRecipeCard(recipe) {
 
 // Handle Search
 function handleSearch() {
-    const searchTerm = searchInput.value.trim().toLowerCase();
+    const searchTerm = searchInput.value.trim();
     if (searchTerm) {
         fetchRecipes(searchTerm);
     }
@@ -94,15 +92,10 @@ function handleSearch() {
 async function handleAddRecipe(event) {
     event.preventDefault();
 
-    const title = document.getElementById("recipe-title").value.trim();
-    const description = document.getElementById("recipe-description").value.trim();
-    const ingredients = document.getElementById("recipe-ingredients").value.split(",").map((ing) => ing.trim());
-    const image = document.getElementById("recipe-image").value.trim();
-
-    if (!title || !description || ingredients.length === 0 || !image) {
-        alert("Please fill in all fields.");
-        return;
-    }
+    const title = document.getElementById("recipe-title").value;
+    const description = document.getElementById("recipe-description").value;
+    const ingredients = document.getElementById("recipe-ingredients").value.split(",");
+    const image = document.getElementById("recipe-image").value;
 
     try {
         await addDoc(collection(db, "recipes"), {
@@ -110,7 +103,6 @@ async function handleAddRecipe(event) {
             description,
             ingredients,
             image,
-            createdAt: new Date(),
         });
 
         alert("Recipe added successfully!");
