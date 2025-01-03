@@ -1,81 +1,56 @@
 document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.getElementById("search-input");
-    const searchButton = document.getElementById("search-btn");
-    const closeButton = document.getElementById("close-btn");
+    const closeButton = document.getElementById("close-search");
     const recipeGrid = document.getElementById("recipe-grid");
-    const searchResultsTitle = document.getElementById("search-results-title");
+    const resultsTitle = document.getElementById("results-title");
     const searchQuerySpan = document.getElementById("search-query");
-    const filters = document.querySelectorAll(".filter-icon");
+    const noResults = document.getElementById("no-results");
 
+    // Example recipes
     const recipes = [
-        { title: "Delicious Pasta", prepTime: "20 mins", tags: ["vegan", "quick-meals"] },
-        { title: "Grilled Chicken", prepTime: "30 mins", tags: ["gluten-free"] },
-        { title: "Vegan Salad", prepTime: "15 mins", tags: ["vegan"] },
-        { title: "Grilled Cheese Sandwich", prepTime: "10 mins", tags: ["quick-meals"] },
-        { title: "Spaghetti Carbonara", prepTime: "25 mins", tags: [] },
-        { title: "Vegan Tacos", prepTime: "15 mins", tags: ["vegan", "favorites"] },
+        { title: "Delicious Pasta", prepTime: "20 mins", tags: ["vegan"], img: "https://via.placeholder.com/300x200" },
+        { title: "Grilled Chicken", prepTime: "30 mins", tags: ["quick-meals"], img: "https://via.placeholder.com/300x200" },
+        { title: "Vegan Salad", prepTime: "15 mins", tags: ["vegan"], img: "https://via.placeholder.com/300x200" },
     ];
 
-    // Display recipes in the grid
-    const displayRecipes = (filteredRecipes) => {
-        recipeGrid.innerHTML = ""; // Clear previous results
-        if (filteredRecipes.length === 0) {
-            recipeGrid.innerHTML = `<p>No recipes found. Try a different search or filter.</p>`;
-            return;
-        }
-        filteredRecipes.forEach(recipe => {
-            const card = document.createElement("div");
-            card.classList.add("card");
-            card.innerHTML = `
-                <img src="https://via.placeholder.com/300x200" alt="${recipe.title}">
-                <h3>${recipe.title}</h3>
-                <p>Prep Time: ${recipe.prepTime}</p>
-            `;
-            recipeGrid.appendChild(card);
-        });
-    };
-
-    // Filter recipes based on input or tags
-    const filterRecipes = (query = "", tag = "") => {
+    // Filter recipes based on search query
+    const filterRecipes = (query) => {
         const lowerQuery = query.toLowerCase();
-        return recipes.filter(recipe => {
-            const matchesQuery = recipe.title.toLowerCase().includes(lowerQuery);
-            const matchesTag = tag ? recipe.tags.includes(tag) : true;
-            return matchesQuery && matchesTag;
-        });
+        return recipes.filter(recipe => recipe.title.toLowerCase().includes(lowerQuery));
     };
 
-    // Handle search input and button
-    const handleSearch = () => {
-        const query = searchInput.value.trim();
+    // Render recipes
+    const renderRecipes = (filteredRecipes) => {
+        recipeGrid.innerHTML = "";
+        if (filteredRecipes.length === 0) {
+            noResults.classList.remove("hidden");
+            resultsTitle.classList.add("hidden");
+        } else {
+            noResults.classList.add("hidden");
+            resultsTitle.classList.remove("hidden");
+            filteredRecipes.forEach(recipe => {
+                const card = document.createElement("div");
+                card.classList.add("card");
+                card.innerHTML = `
+                    <img src="${recipe.img}" alt="${recipe.title}">
+                    <h4>${recipe.title}</h4>
+                    <p>Prep Time: ${recipe.prepTime}</p>
+                `;
+                recipeGrid.appendChild(card);
+            });
+        }
+    };
+
+    // Handle search
+    searchInput.addEventListener("input", (e) => {
+        const query = e.target.value;
         searchQuerySpan.textContent = query;
-        searchResultsTitle.classList.remove("hidden");
         const filteredRecipes = filterRecipes(query);
-        displayRecipes(filteredRecipes);
-    };
-
-    // Handle filter clicks
-    filters.forEach(filter => {
-        filter.addEventListener("click", () => {
-            const tag = filter.getAttribute("data-filter");
-            searchQuerySpan.textContent = tag.charAt(0).toUpperCase() + tag.slice(1);
-            searchResultsTitle.classList.remove("hidden");
-            const filteredRecipes = filterRecipes("", tag);
-            displayRecipes(filteredRecipes);
-        });
+        renderRecipes(filteredRecipes);
     });
 
     // Close button functionality
     closeButton.addEventListener("click", () => {
-        window.location.href = "index.html"; // Redirect back to the hero section
+        window.location.href = "index.html";
     });
-
-    // Event listener for search input and button
-    searchInput.addEventListener("keyup", (e) => {
-        if (e.key === "Enter") handleSearch();
-    });
-    searchButton.addEventListener("click", handleSearch);
-
-    // Initialize with no recipes displayed
-    displayRecipes([]);
 });
