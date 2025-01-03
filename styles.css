@@ -21,11 +21,12 @@ body {
     justify-content: center;
     text-align: center;
     overflow: hidden;
-    transition: transform 0.5s ease;
+    transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
 .hero.collapsed {
     transform: translateY(-100%);
+    opacity: 0;
 }
 
 .hero-overlay {
@@ -44,11 +45,14 @@ body {
     max-width: 800px;
     text-align: center;
     padding: 20px;
+    color: white;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
 }
 
 .hero-content h1 {
     font-size: 3rem;
     margin-bottom: 10px;
+    font-weight: bold;
 }
 
 .hero-content p {
@@ -61,29 +65,31 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    position: relative;
 }
 
 .search-bar input {
     width: 60%;
-    padding: 10px;
+    padding: 10px 15px;
     border: 2px solid #e09f3e;
     border-radius: 25px;
     font-size: 1rem;
     outline: none;
+    padding-right: 40px; /* Space for the magnifying glass */
 }
 
 .search-btn {
-    background-color: #e09f3e;
-    color: white;
+    position: absolute;
+    right: 15px;
+    background: transparent;
+    color: #e09f3e;
     border: none;
-    border-radius: 50%;
-    padding: 8px;
+    font-size: 1.2rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 .search-btn:hover {
-    background-color: #c07a26;
+    color: #c07a26;
 }
 
 .hero-buttons {
