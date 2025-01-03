@@ -1,6 +1,7 @@
 // Firebase Initialization
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
 import { getFirestore, collection, addDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
 
 // Firebase Config
 const firebaseConfig = {
@@ -16,6 +17,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
 // DOM Elements
 const searchInput = document.getElementById("search-input");
@@ -27,12 +29,33 @@ const closeRecipeModal = document.getElementById("close-recipe-modal");
 const addRecipeForm = document.getElementById("add-recipe-form");
 const closeSearch = document.getElementById("close-search");
 
+// Track User Login State
+let currentUser = null;
+
+onAuthStateChanged(auth, (user) => {
+    currentUser = user;
+
+    if (user) {
+        // User is logged in
+        document.getElementById("user-menu").classList.add("logged-in");
+    } else {
+        // User is not logged in
+        document.getElementById("user-menu").classList.remove("logged-in");
+    }
+});
+
 // Event Listeners
 searchBtn.addEventListener("click", handleSearch);
 searchInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") handleSearch();
 });
-addRecipeBtn.addEventListener("click", () => addRecipeModal.classList.add("active"));
+addRecipeBtn.addEventListener("click", () => {
+    if (!currentUser) {
+        alert("You must be logged in to add a recipe.");
+    } else {
+        addRecipeModal.classList.add("active");
+    }
+});
 closeRecipeModal.addEventListener("click", () => addRecipeModal.classList.remove("active"));
 addRecipeForm.addEventListener("submit", handleAddRecipe);
 closeSearch.addEventListener("click", () => {
@@ -92,6 +115,11 @@ function handleSearch() {
 async function handleAddRecipe(event) {
     event.preventDefault();
 
+    if (!currentUser) {
+        alert("You must be logged in to add a recipe.");
+        return;
+    }
+
     const title = document.getElementById("recipe-title").value;
     const description = document.getElementById("recipe-description").value;
     const ingredients = document.getElementById("recipe-ingredients").value.split(",");
@@ -103,6 +131,7 @@ async function handleAddRecipe(event) {
             description,
             ingredients,
             image,
+            userId: currentUser.uid,
         });
 
         alert("Recipe added successfully!");
