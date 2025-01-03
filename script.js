@@ -1,12 +1,18 @@
-// Selectors
-const heroSearchBar = document.getElementById("hero-search-bar");
+document.addEventListener('DOMContentLoaded', () => {
+    const heroSearchBar = document.getElementById('hero-search-bar');
+    const searchSection = document.getElementById('search-section');
+    const closeSearch = document.getElementById('close-search');
+    const heroSection = document.querySelector('.hero');
 
-// Function to navigate to the search page
-function navigateToSearchPage() {
-    // Redirect to the search.html page
-    window.location.href = "search.html";
-}
+    // Open Search Section
+    heroSearchBar.addEventListener('click', () => {
+        heroSection.classList.add('collapsed');
+        searchSection.classList.add('active');
+    });
 
-// Event listener for the hero search bar
-heroSearchBar.addEventListener("click", navigateToSearchPage);
-
+    // Close Search Section
+    closeSearch.addEventListener('click', () => {
+        heroSection.classList.remove('collapsed');
+        searchSection.classList.remove('active');
+    });
+});
