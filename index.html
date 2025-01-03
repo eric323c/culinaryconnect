@@ -24,9 +24,16 @@
     <div class="hero-background">
       <img src="https://images.pexels.com/photos/5768970/pexels-photo-5768970.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Food background">
     </div>
+    <!-- Profile Icon -->
+    <div class="profile-container">
+      <div class="profile-icon" onclick="toggleProfileDropdown()">👤</div>
+      <div class="profile-dropdown hidden" id="profile-dropdown">
+        <button onclick="login()">Login</button>
+        <button onclick="signup()">Sign Up</button>
+      </div>
+    </div>
   </section>
 
-  <!-- Firebase and Custom Script -->
   <script src="script.js" defer></script>
 </body>
 </html>
