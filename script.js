@@ -1,18 +1,15 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const heroSearchBar = document.getElementById('hero-search-bar');
-    const searchSection = document.getElementById('search-section');
-    const closeSearch = document.getElementById('close-search');
-    const heroSection = document.querySelector('.hero');
+document.addEventListener("DOMContentLoaded", () => {
+    const heroSearchBar = document.getElementById("hero-search-bar");
+    const heroSection = document.querySelector(".hero");
 
-    // Open Search Section
-    heroSearchBar.addEventListener('click', () => {
-        heroSection.classList.add('collapsed');
-        searchSection.classList.add('active');
-    });
+    heroSearchBar.addEventListener("focus", () => {
+        // Animate the hero section collapsing and transition to the search section
+        heroSection.style.transition = "transform 0.5s ease, opacity 0.5s ease";
+        heroSection.style.transform = "translateY(-100%)";
+        heroSection.style.opacity = "0";
 
-    // Close Search Section
-    closeSearch.addEventListener('click', () => {
-        heroSection.classList.remove('collapsed');
-        searchSection.classList.remove('active');
+        setTimeout(() => {
+            window.location.href = "search.html"; // Redirect to search.html
+        }, 500); // Wait for the animation to complete before redirecting
     });
 });
