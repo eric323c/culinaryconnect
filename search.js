@@ -1,59 +1,63 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const searchInput = document.getElementById("search-input");
-    const closeButton = document.getElementById("close-search");
-    const recipeGrid = document.getElementById("recipe-grid");
-    const resultsTitle = document.getElementById("results-title");
-    const searchQuerySpan = document.getElementById("search-query");
-    const noResults = document.getElementById("no-results");
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
 
-    // Example recipes
-    const recipes = [
-        { title: "Delicious Pasta", prepTime: "20 mins", tags: ["vegan"], img: "https://via.placeholder.com/300x200" },
-        { title: "Grilled Chicken", prepTime: "30 mins", tags: ["quick-meals"], img: "https://via.placeholder.com/300x200" },
-        { title: "Vegan Salad", prepTime: "15 mins", tags: ["vegan"], img: "https://via.placeholder.com/300x200" },
-    ];
+// Firebase Config
+const firebaseConfig = {
+  apiKey: "AIzaSyC1n_23aCscqCgS3cx16rYfPFpK4IkLdT8",
+  authDomain: "culinary-connect-8733e.firebaseapp.com",
+  projectId: "culinary-connect-8733e",
+  storageBucket: "culinary-connect-8733e.appspot.com",
+  messagingSenderId: "336298434506",
+  appId: "1:336298434506:web:98e0417c24ede7a955b933",
+};
 
-    // Filter recipes based on search query
-    const filterRecipes = (query) => {
-        const lowerQuery = query.toLowerCase();
-        return recipes.filter(recipe => recipe.title.toLowerCase().includes(lowerQuery));
-    };
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-    // Render recipes
-    const renderRecipes = (filteredRecipes) => {
-        recipeGrid.innerHTML = "";
-        if (filteredRecipes.length === 0) {
-            noResults.classList.remove("hidden");
-            resultsTitle.classList.add("hidden");
-        } else {
-            noResults.classList.add("hidden");
-            resultsTitle.classList.remove("hidden");
-            filteredRecipes.forEach(recipe => {
-                const card = document.createElement("div");
-                card.classList.add("card");
-                card.innerHTML = `
-                    <img src="${recipe.img}" alt="${recipe.title}">
-                    <h4>${recipe.title}</h4>
-                    <p>Prep Time: ${recipe.prepTime}</p>
-                `;
-                recipeGrid.appendChild(card);
-            });
-        }
-    };
+// Fetch and Display Recipes
+async function fetchRecipes() {
+  const recipesRef = collection(db, "recipes");
+  const querySnapshot = await getDocs(recipesRef);
 
-    // Handle search
-    searchInput.addEventListener("input", (e) => {
-        const query = e.target.value;
-        searchQuerySpan.textContent = query;
-        const filteredRecipes = filterRecipes(query);
-        renderRecipes(filteredRecipes);
+  const recipesContainer = document.getElementById("recipes-container");
+  recipesContainer.innerHTML = ""; // Clear previous recipes
+
+  querySnapshot.forEach((doc) => {
+    const recipe = doc.data();
+    recipesContainer.innerHTML += `
+      <div class="recipe-card">
+        <img src="${recipe.imageUrl}" alt="${recipe.title}">
+        <h3>${recipe.title}</h3>
+        <p>${recipe.description}</p>
+      </div>
+    `;
+  });
+}
+
+// Add Recipe to Firestore
+const recipeForm = document.getElementById("recipe-form");
+recipeForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const title = document.getElementById("recipe-title").value;
+  const description = document.getElementById("recipe-description").value;
+  const category = document.getElementById("recipe-category").value;
+
+  try {
+    await addDoc(collection(db, "recipes"), {
+      title,
+      description,
+      category,
+      imageUrl: "https://via.placeholder.com/300x200", // Placeholder for now
     });
 
-    // Close button functionality
-    closeButton.addEventListener("click", () => {
-        window.location.href = "index.html";
-    });
-
-    // Render initial recipes
-    renderRecipes(recipes);
+    alert("Recipe added successfully!");
+    fetchRecipes(); // Refresh the recipe list
+  } catch (error) {
+    console.error("Error adding recipe:", error.message);
+  }
 });
+
+// Initialize Page
+fetchRecipes();
