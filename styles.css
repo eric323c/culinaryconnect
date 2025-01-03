@@ -4,6 +4,41 @@
   padding: 0;
   box-sizing: border-box;
 }
+/* Hero Section Login Button */
+.login-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid #e09f3e;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.login-btn:hover {
+    background-color: #e09f3e;
+    color: #fff;
+}
+
+/* Hero Buttons Adjustments */
+.secondary-btn {
+    background-color: transparent;
+    color: #e09f3e;
+    border: 2px solid #e09f3e;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.secondary-btn:hover {
+    background-color: #e09f3e;
+    color: white;
+}
 
 body {
   font-family: 'Poppins', sans-serif;
